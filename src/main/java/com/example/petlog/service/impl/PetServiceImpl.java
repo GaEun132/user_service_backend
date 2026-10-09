@@ -14,6 +14,7 @@ import com.example.petlog.service.PetService;
 import com.example.petlog.util.Utils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,7 +31,9 @@ public class PetServiceImpl implements PetService {
     private final PetRepository petRepository;
     private final ImageService imageService;
     private final Utils utils;
-    private final String petBaseUrl = "https://petlog-images-bucket.s3.ap-northeast-2.amazonaws.com/7593d55c-0_%ED%8E%AB%EA%B8%B0%EB%B3%B8%ED%94%84%EB%A1%9C%ED%95%84.jpg";
+    @Value("${pet.default-profile-image-url}")
+    private String petBaseUrl;
+
     @Transactional
     @Override
     // 펫 생성

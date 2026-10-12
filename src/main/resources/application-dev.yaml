@@ -19,10 +19,13 @@ token:
 cloud:
   aws:
     s3:
-      access-key: "${AWS_ACCESS_KEY}"
-      secret-key: "${AWS_SECRET_KEY}"
-      bucket-name: "${AWS_S3_BUCKET}"
-    region: "${AWS_BUCKET_REGION}"
+      access-key: "${RUSTFS_ACCESS_KEY:rustfsadmin}"
+      secret-key: "${RUSTFS_SECRET_KEY:rustfsadmin}"
+      bucket-name: "${RUSTFS_BUCKET:petlog-dev-images}"
+      endpoint: "${RUSTFS_ENDPOINT:http://localhost:9002}"
+      public-url: "${RUSTFS_PUBLIC_URL:http://localhost:9002}"
+      path-style-access-enabled: true
+    region: "${RUSTFS_REGION:${AWS_BUCKET_REGION:ap-northeast-2}}"
 
 springdoc:
   api-docs:

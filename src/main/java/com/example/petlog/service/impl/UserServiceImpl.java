@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
     private final PetService petService;
     private final BCryptPasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
-    private final ImageService imageService;
+    private final RustFSServiceImpl imageService;
     private final AiService aiService;
     private final Utils utils;
     private final Environment env;
@@ -224,12 +224,24 @@ public class UserServiceImpl implements UserService {
         user.earnCoin(request.getAmount());
         userRepository.save(user);
         CoinLogResponse.CreateCoinLogDto coinResponse = coinLogService.useCoin(user, request.getAmount(), request.getType(), Coin.ADD);
+        AlarmType alarmType = null;
+        if (request.getType() == CoinType.RECAP) {
+            alarmType = AlarmType.RECAP;
+        } else if (request.getType() == CoinType.WIRTEFEED) {
+            alarmType = AlarmType.WIRTEFEED;
+        } else if (request.getType() == CoinType.BUY) {
+            alarmType = AlarmType.BUY;
+        } else if (request.getType() == CoinType.WRITEDIARY) {
+            alarmType = AlarmType.WRITEDIARY;
+        } else {
+            alarmType = AlarmType.BUY;
+        }
         NotificationRequest.CreateNotificationDto coinDto =  NotificationRequest.CreateNotificationDto.builder()
                         .coin(request.getAmount())
                         .senderId(user.getId())
                         .receiverId(user.getId())
                         .targetId(user.getId())
-                        .type(AlarmType.COIN)
+                        .type(alarmType)
                         .build();
         notificationService.createNotification(coinDto);
         return UserResponse.CoinLogDto.fromEntity(user, coinResponse.getAmount(), coinResponse.getType(), coinResponse.getCreatedAt());

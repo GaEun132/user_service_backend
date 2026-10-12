@@ -20,3 +20,29 @@ spring:
     multipart:
       max-file-size: 30MB
       max-request-size: 30MB
+
+# prometheus 및 actuator 설정
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus,metrics
+  endpoint:
+    health:
+      show-details: always
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+
+logging:
+  file:
+    name: ${LOG_FILE:/Users/gaeun/Documents/projects/my_project/petlog_be/user-service/logs/user-service.log}
+  structured:
+    format:
+      console: logstash # springboot에서 logstash 형식의 json 출력을 지원
+      file: logstash
+    json:
+      add:
+        service_name: "${spring.application.name}"
+        service_namespace: petlog

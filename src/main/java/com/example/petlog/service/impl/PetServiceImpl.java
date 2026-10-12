@@ -9,7 +9,6 @@ import com.example.petlog.exception.BusinessException;
 import com.example.petlog.exception.ErrorCode;
 import com.example.petlog.repository.PetRepository;
 import com.example.petlog.repository.UserRepository;
-import com.example.petlog.service.ImageService;
 import com.example.petlog.service.PetService;
 import com.example.petlog.util.Utils;
 import jakarta.validation.Valid;
@@ -29,7 +28,7 @@ public class PetServiceImpl implements PetService {
 
     private final UserRepository userRepository;
     private final PetRepository petRepository;
-    private final ImageService imageService;
+    private final RustFSServiceImpl imageService;
     private final Utils utils;
     @Value("${pet.default-profile-image-url}")
     private String petBaseUrl;

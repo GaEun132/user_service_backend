@@ -26,7 +26,7 @@ public class ArchiveServiceImpl implements ArchiveService {
 
     private final ArchiveRepository archiveRepository;
     private final UserRepository userRepository;
-    private final ImageService imageService;
+    private final RustFSServiceImpl imageService;
 
     @Transactional
     @Override

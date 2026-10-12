@@ -11,6 +11,9 @@ spring:
       ddl-auto: update
     show-sql: true
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        format_sql: true
 
 token:
   secret: "${TOKEN_SECRET}"
@@ -32,3 +35,6 @@ springdoc:
     path: "${SWAGGER_DOCS}"
   swagger-ui:
     path: "${SWAGGER_UI}"
+    display-request-duration: true
+
+

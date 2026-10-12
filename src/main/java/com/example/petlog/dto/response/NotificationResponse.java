@@ -99,7 +99,7 @@ public class NotificationResponse {
         public static GetNotificationListDto fromEntity(List<UserNotification> userNotifications) {
             boolean isEmpty = userNotifications.isEmpty();
             List<GetNotificationDto> notifications = userNotifications.stream()
-                    .map(userNotification ->GetNotificationDto.fromEntity(userNotification))
+                    .map(GetNotificationDto::fromEntity)
                     .toList();
             return GetNotificationListDto.builder()
                     .notifications(notifications)
